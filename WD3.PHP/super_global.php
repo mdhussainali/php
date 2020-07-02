@@ -21,16 +21,20 @@ multipication(); */
 multipication();
 echo $mul; */
 
-
+/* 
 function multipication(){
 
     $GLOBALS['mul'] = $GLOBALS['x'] * $GLOBALS['y'];
 }
 
 multipication();
-echo $mul;
+echo $mul; */
 
-
+//echo $_SERVER['PHP_SELF'];
+//echo $_SERVER['SERVER_NAME'];
+//echo $_SERVER['HTTP_HOST'];
+//echo $_SERVER['SCRIPT_NAME'];
+echo $_SERVER['REMOTE_HOST'];
 
 
 
