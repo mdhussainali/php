@@ -1,3 +1,49 @@
+
+<?php
+
+include 'connect.php';
+
+if(isset($_POST['update'])){
+          //echo "<script> alert('You are successfully')</script>";
+        /** fetch data from reg form and prevent theme from sql injection */
+        $email = mysqli_escape_string($conn,$_POST['email']) ;
+        // md5 is encryted password
+        $password = mysqli_escape_string($conn,md5($_POST['pwd']));
+        $dob = mysqli_escape_string($conn,$_POST['date']);
+        $id = mysqli_escape_string($conn,$_POST['uid']);
+
+        $sql = "UPDATE user SET email='$email',password='$password', dob='$dob' WHERE id='$id'";
+        $query = mysqli_query($conn,$sql);
+        if($query){
+          header('location:select.php');
+
+        }
+
+        else{
+          echo "<script> alert('someting went wrong')</script>".mysqli_error($conn);
+        }
+      } 
+        /** Insert Query */
+        $id ='';
+        $email = '';
+        $password = '';
+        $dob = '';
+
+if(isset($_GET['id'])){
+  $sql = "SELECT * FROM user where id=".$_GET['id'];
+  $query = mysqli_query($conn,$sql);
+  if($query){
+    if(mysqli_num_rows($query)>0){
+      while($row=mysqli_fetch_assoc($query)){
+        $id = $row['id'];
+        $email = $row['email'];
+        $password = $row['password'];
+        $dob = $row['dob'];
+      }
+    }
+  }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -121,25 +167,29 @@ hr {
 </style>
 </head>
 <body>
-
 <div class="container">
   <h2>Update information</h2>
-  <form action="/action_page.php">
+  <form class="from horizontal" method="POST" action="edit.php">
     <div class="form-group">
       <label for="email">Email:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+      <input type="email" value="<?= $email?>" class="form-control" id="email" placeholder="Enter email" name="email">
     </div>
     <div class="form-group">
       <label for="pwd">Password:</label>
-      <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+      <input type="password" value="<?= $password?>" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
     </div>
     <div class="date">
     <label for="date"><b>Date of Birth</b></label>
-      <input type="date"  name="date" required>
+      <input type="date" value="<?= $dob?>" name="date" required>
     </div>
-    <button type="submit" class="btn btn-default" display="block">Update information</button>
+
+    <div class="date">
+    
+      <input type="hidden"  id="uid" value="<?=$id;?>" name="uid">
+    </div>
+  
+    <button type="submit" name="update" class="btn btn-default">Update information</button>
   </form>
 </div>
-
 </body>
 </html>

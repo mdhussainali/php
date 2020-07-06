@@ -16,7 +16,8 @@
 
 <div class="container">
   <h2 class="text-center text-primary" >BABYSHOPE_DB</h2>
-  <p class="text-center text-success">User Information</p>            
+  <p class="text-center text-success">User Information</p>  
+  <a href="insert.php" class="btn btn-primary" terget="_blank">add a new data</a>          
   <table class="table table-striped">
     <thead>
       <tr>
@@ -45,8 +46,8 @@ if($query){
       <tr>
         <td><?php echo $row['email'] ?></td>
         <td><?php echo $row['dob']?></td>
-        <td><a href="edit.php?id=<?= $row['id']?>"  class="btn btn-success">Edit</a>
-        <a href="#" class="btn btn-danger">Delete</a></td>
+        <td><a href="edit.php?id=<?= $row['id'];?>" target="_blank" class="btn btn-success">Edit</a>
+        <a href="delete.php?id=<?= $row['id'];?>" target="_blank"  class="btn btn-danger">Delete</a></td>
       </tr>
      <?php
     }
